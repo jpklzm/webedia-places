@@ -1,3 +1,4 @@
+// styles to custom color on map
 var styles = [
   {
     "elementType": "geometry",
@@ -256,6 +257,7 @@ var styles = [
   }
 ];
 
+// data to be displayed on map
 var places = [
 {
   title: "Webedia França",
@@ -270,43 +272,41 @@ var places = [
 
 (function(styles){
 
+	const initMap = () => {
 
-	function initialize() {
-		
-		var coords = places[0].coords;
-		var myLatlng = new google.maps.LatLng(coords.lat, coords.lng);
-		var imagePath = 'http://www.webedia-group.com/web/skins/default/images/favicon.ico'
-		var mapOptions = {
+		let coords = places[0].coords;
+		let latlng = new google.maps.LatLng(coords.lat, coords.lng);
+		var markerIcon = 'http://www.webedia-group.com/web/skins/default/images/favicon.ico'
+		let mapOptions = {
 			zoom: 2,
-			center: myLatlng,
+			center: latlng,
 			mapTypeId: google.maps.MapTypeId.ROADMAP,
 			styles: styles
 		}
 
-		var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+		const map = new google.maps.Map(document.getElementById('map'), mapOptions);
 		
-		var contentString = 'Some address here..';
-		//Set window width + content
-		var infowindow = new google.maps.InfoWindow({
-			content: contentString,
+		// marker popup content
+		let infowindow = new google.maps.InfoWindow({
+			content: "infowindow content",
 			maxWidth: 500
 		});
 
-		//Add Marker
-		var marker = new google.maps.Marker({
-			position: myLatlng,
+		// marker setup
+		let marker = new google.maps.Marker({
+			position: latlng,
 			map: map,
-			icon: imagePath,
-			title: 'image title',
-			backgroundColor: "#ccc"
+			icon: markerIcon,
+			title: 'a title for a marker'
 		});
-
-		google.maps.event.addListener(marker, 'click', function() {
+        
+        // show popup when a marker is clicked
+		google.maps.event.addListener(marker, 'click', () => {
 			infowindow.open(map,marker);
 		});
 
-		//Resize Function
-		google.maps.event.addDomListener(window, "resize", function() {
+		// resize to the viewport
+		google.maps.event.addDomListener(window, "resize", () => {
 			var center = map.getCenter();
 			google.maps.event.trigger(map, "resize");
 			map.setCenter(center);
@@ -314,6 +314,49 @@ var places = [
 
 	}
 	
-	google.maps.event.addDomListener(window, 'load', initialize);
+
+	const initPanorama = () => {
+
+		// setup streetview panorama
+		let coords = places[0].coords;
+		let latlng = new google.maps.LatLng(coords.lat, coords.lng);
+
+        const panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('panorama'), {
+              position: new google.maps.LatLng(coords.lat, coords.lng),
+              pov: {
+                heading: 270,
+                pitch: 0
+              },
+              visible: true
+        });
+        
+        // 360 degrees of streetview panorama
+        let degree = panorama.getPov().heading;
+        setTimeout(() => {
+
+        	setInterval(() => {
+        	  degree += 1;
+        	  if (degree >= 360) degree = 0;
+        	  
+        	  panorama.setPov({
+        		heading: degree,
+        		pitch: 0
+              })
+        	
+        	}, 50);
+        }, 2000)
+
+        // panorama events
+        panorama.addListener('pano_changed', ()=>{});
+        panorama.addListener('links_changed', ()=>{});
+        panorama.addListener('position_changed', ()=>{});
+        panorama.addListener('pov_changed', ()=>{});
+      }
+
+	google.maps.event.addDomListener(window, 'load', () => { 
+		initMap(); 
+		initPanorama();
+	});
 
 })(styles);
