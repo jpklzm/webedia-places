@@ -43,6 +43,7 @@
       () => {
         document.getElementById("p1").className += " hidden";
         document.getElementById("p2").className += " visible";
+        console.log(pin.getAttribute("data-hq"))
       })
   });
 
