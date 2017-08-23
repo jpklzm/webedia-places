@@ -355,7 +355,7 @@ var places = [
       }
 
 	google.maps.event.addDomListener(window, 'load', () => { 
-		initMap(); 
+		// initMap(); 
 		initPanorama();
 	});
 
