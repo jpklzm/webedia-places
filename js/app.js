@@ -37,16 +37,19 @@
   Array.from(document.querySelectorAll(".pin"))
        .forEach(pin => pin.addEventListener("mouseover", panoramaForPin, false))
   
-  // document.querySelector(".pin").addEventListener("click", function() {
-  //   console.log(this.getAttribute("data-hq"));
-  // });
+  Array.from(document.querySelectorAll(".pin")).forEach(pin => {
+    pin.addEventListener(
+      "click",
+      () => {
+        document.getElementById("p1").className += " hidden";
+        document.getElementById("p2").className += " visible";
+      })
+  });
 
-    Array.from(document.querySelectorAll(".pin")).forEach(pin => {
-      pin.addEventListener(
-        "click",
-        () => console.log(pin.getAttribute("data-hq"))
-      )}
-    );
+  document.getElementById("back").addEventListener("click", () => {
+    document.getElementById("p1").className = "pin-wrapper";
+    document.getElementById("p2").className = "data-wrapper";
+  });
 
 
 })();
