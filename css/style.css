@@ -16,6 +16,12 @@ h1 {
   font-family: "Open Sans";
 }
 
+h2 {
+  color: black;
+  font-size: 25px;
+  text-align: center;
+}
+
 strong{
   font-weight: bold;
   color: black;
@@ -223,9 +229,28 @@ html {
   }
 }
 
+.content {
+  display: none;
+  padding: 20px;
+  transform: rotate(45deg) translateX(-40px);
+  background: rebeccapurple;
+  width: 240px;
+  height: 300px;
+  position: absolute;
+  z-index: 999;
+}
+
 .rj {
   top:65%;
   left:39%;
+}
+
+.rj:hover{
+  z-index: 9999
+}
+
+.rj:hover .content {
+  display:block;
 }
 
 .sp {
@@ -233,9 +258,25 @@ html {
   left:37%;
 }
 
+.sp:hover{
+  z-index: 9999
+}
+
+.sp:hover .content {
+  display:block;
+}
+
 .fr {
   top:44%;
   left:49.5%;
+}
+
+.fr:hover{
+  z-index: 9999
+}
+
+.fr:hover .content {
+  display:block;
 }
 
 .es {
@@ -243,9 +284,25 @@ html {
   left: 47.9%;
 }
 
+.es:hover{
+  z-index: 9999
+}
+
+.es:hover .content {
+  display:block;
+}
+
 .us {
   top: 45.6%;
   left: 33.4%;
+}
+
+.us:hover{
+  z-index: 9999
+}
+
+.us:hover .content {
+  display:block;
 }
 
 .tk {
@@ -253,7 +310,23 @@ html {
   left: 54.5%;
 }
 
+.tk:hover{
+  z-index: 9999
+}
+
+.tk:hover .content {
+  display:block;
+}
+
 .gr {
   top:41.9%;
   left:51.5%;
+}
+
+.gr:hover{
+  z-index: 9999
+}
+
+.gr:hover .content {
+  display:block;
 }
